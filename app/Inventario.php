@@ -8,6 +8,10 @@ class Inventario extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'vencimiento' => 'datetime:d-m-Y'
+    ];
+
     public function movimientos()
     {
         return $this->hasMany('App\Movimiento');
