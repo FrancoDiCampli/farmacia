@@ -6,10 +6,12 @@
 //     return view('welcome');
 // });
 
-// Auth::routes();
+Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {
     return view('layouts.main');
 });
+
+Route::resource('usuarios', 'UsuariosController');
