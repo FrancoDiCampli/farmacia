@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Producto;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProductosController extends Controller
 {
@@ -36,7 +37,22 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // FOTO
+        $name = 'noimage.png';
+        if ($request->get('envase_secundario')) {
+            $carpeta = public_path() . '/img/productos/';
+            if (!file_exists($carpeta)) {
+                mkdir($carpeta, 0777, true);
+            }
+            $image = $request->get('envase_secundario');
+            $name = time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+            Image::make($request->get('envase_secundario'))->save(public_path('img/productos/') . $name);
+        }
+        $foto = '/img/productos/' . $name;
+
+        Producto::create($request->toArray());
+
+        return redirect()->action('ProductosController@index');
     }
 
     /**

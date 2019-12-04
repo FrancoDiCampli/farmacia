@@ -18,22 +18,71 @@
             </div>
 
             @if($producto)
-            <div>
-                {{$producto}}
-                <a href="{{route('inventarios.create')}}" type="button" class="btn btn-lg btn-success">
-                    <i class="zmdi zmdi-plus"></i>&nbsp;
-                    <span>Nuevo Inventario</span>
-                </a>
+            <div class="table-responsive table-data">
+                <h3 class="title-3 m-b-30">Producto</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>tipo</td>
+                            <td>gtin</td>
+                            <td>nombre genérico</td>
+                            <td>presentación</td>
+                            <td>nombre comercial</td>
+                            <td>laboratorio</td>
+                            <td>stock total</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="table-data__info">
+                                    <b>{{$producto->tipo}}</b>
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="table-data__info">
+                                    <h6>{{$producto->gtin}}</h6>
+
+                                </div>
+                            </td>
+                            <td> <span>
+                                    <b>{{$producto->nombre_generico}}</b>
+                                </span></td>
+                            <td>
+                                <span class="role admin">{{$producto->presentacion}}</span>
+                            </td>
+                            <td>
+                                <span class="role admin">{{$producto->nombre_comercial}}</span>
+                            </td>
+                            <td>
+                                <span class="role admin">{{$producto->laboratorio}}</span>
+                            </td>
+                            <td>
+                                <span class="role admin">{{$producto->inventarios->sum('stock')}}</span>
+                            </td>
+                            <td>
+                                <a href="{{route('inventarios.create', $producto->id)}}" type="button" class="btn btn-sm btn-success">
+                                    <i class="zmdi zmdi-plus"></i>&nbsp;
+                                    <span>Nuevo Inventario</span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            @endif
 
             <div class="table-responsive table-data">
+                <h3 class="title-3 m-b-30">Inventarios</h3>
                 <table class="table">
                     <thead>
                         <tr>
                             <td>lote</td>
+                            <td>serie</td>
                             <td>vencimiento</td>
                             <td>stock</td>
+                            <td>farmacia</td>
                             <td></td>
                         </tr>
                     </thead>
@@ -42,13 +91,19 @@
                         @foreach ($inventarios as $inventario)
                         <tr>
                             <td> <span>
-                                    <a href="#">{{$inventario->lote}}</a>
+                                    <b>{{$inventario->lote}}</b>
                                 </span></td>
+                            <td>
+                                <span class="role admin">{{$inventario->serie}}</span>
+                            </td>
                             <td>
                                 <span class="role admin">{{$inventario->vencimiento->format('d-m-Y')}}</span>
                             </td>
                             <td>
                                 <span class="role admin">{{$inventario->stock}}</span>
+                            </td>
+                            <td>
+                                <span class="role admin">{{$inventario->farmacia->razon_social}}</span>
                             </td>
 
                             <td>
@@ -72,7 +127,7 @@
                     </tbody>
                 </table>
             </div>
-
+            @endif
         </div>
     </div>
 

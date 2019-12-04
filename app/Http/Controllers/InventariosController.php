@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Farmacia;
 use App\Inventario;
 use App\Producto;
 use Illuminate\Http\Request;
@@ -38,9 +39,11 @@ class InventariosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $producto = Producto::find($id);
+        $farmacias = Farmacia::all();
+        return view('inventarios.create', compact('producto', 'farmacia'));
     }
 
     /**

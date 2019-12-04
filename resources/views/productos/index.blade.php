@@ -19,17 +19,25 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <td>tipo</td>
                             <td>gtin</td>
                             <td>nombre genérico</td>
                             <td>presentación</td>
                             <td>nombre comercial</td>
-                            <td>stock</td>
+                            <td>laboratorio</td>
+                            <td>stock total</td>
                             <td></td>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($productos as $producto)
                         <tr>
+                            <td>
+                                <div class="table-data__info">
+                                    <b>{{$producto->tipo}}</b>
+
+                                </div>
+                            </td>
                             <td>
                                 <div class="table-data__info">
                                     <h6>{{$producto->gtin}}</h6>
@@ -45,7 +53,9 @@
                             <td>
                                 <span class="role admin">{{$producto->nombre_comercial}}</span>
                             </td>
-
+                            <td>
+                                <span class="role admin">{{$producto->laboratorio}}</span>
+                            </td>
                             <td>
                                 <span class="role admin">{{$producto->inventarios->sum('stock')}}</span>
                             </td>
