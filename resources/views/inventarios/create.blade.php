@@ -10,71 +10,65 @@
 
             <form method="POST" action="/inventarios">
                 @csrf
-
+                <div class="row form-group">
+                    <p>
+                        <h4>Producto:</h4> <b>{{$producto->nombre_comercial}}</b>
+                    </p>
+                </div>
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label for="nombre" class=" form-control-label">Nombre</label>
+                        <label for="lote" class=" form-control-label">Lote</label>
                     </div>
-                    <div class="col-12 col-md-9">
-                        <input type="text" id="nombre" name="nombre" placeholder="Ingrese Nombre" class="form-control">
+                    <div class="col-12 col-md-6">
+                        <input type="number" id="lote" name="lote" placeholder="Ingrese Lote" class="form-control">
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label for="direccion" class=" form-control-label">Dirección</label>
+                        <label for="serie" class=" form-control-label">Serie</label>
                     </div>
-                    <div class="col-12 col-md-9">
-                        <input type="text" id="direccion" name="direccion" placeholder="Ingrese Dirección" class="form-control">
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col col-md-3">
-                        <label for="telefono" class=" form-control-label">Teléfono</label>
-                    </div>
-                    <div class="col-12 col-md-9">
-                        <input type="text" id="telefono" name="telefono" placeholder="Ingrese Teléfono" class="form-control">
+                    <div class="col-12 col-md-6">
+                        <input type="number" id="serie" name="serie" placeholder="Ingrese Serie" class="form-control">
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label for="email" class=" form-control-label">Email</label>
+                        <label for="vencimiento" class=" form-control-label">Vencimiento</label>
                     </div>
-                    <div class="col-12 col-md-9">
-                        <input type="email" id="email" name="email" placeholder="Ingrese Email" class="form-control">
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col col-md-3">
-                        <label for="password" class=" form-control-label">Password</label>
-                    </div>
-                    <div class="col-12 col-md-9">
-                        <input type="password" id="password" name="password" placeholder="Ingrese Password" class="form-control">
+                    <div class="col-12 col-md-6">
+                        <input type="date" id="vencimiento" name="vencimiento" class="form-control">
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label for="perfil" class=" form-control-label">Perfil</label>
+                        <label for="stock_minimo" class=" form-control-label">Stock Mínimo</label>
                     </div>
-                    <div class="col-12 col-md-9">
-                        <select name="perfil" id="perfil" class="form-control-md form-control">
-                            <option selected>Seleccione una opción</option>
-                            <option value="1">Administrador</option>
-                            <option value="2">Director</option>
-                            <option value="3">Auxiliar Farmaceútico</option>
-                        </select>
+                    <div class="col-12 col-md-6">
+                        <input type="number" value="1" id="stock_minimo" name="stock_minimo" placeholder="Ingrese Stock Mínimo" class="form-control">
                     </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="stock" class=" form-control-label">Stock</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="number" id="stock" name="stock" placeholder="Ingrese Stock" class="form-control">
+                    </div>
+                </div>
+
+                <div hidden>
+                    <input type="number" id="producto_id" name="producto_id" value="{{$producto->id}}">
                 </div>
 
                 <div class="row form-group">
                     <div class="col col-md-3">
                         <label for="farmacia_id" class=" form-control-label">Farmacia</label>
                     </div>
-                    <div class="col-12 col-md-9">
+                    <div class="col-12 col-md-6">
                         <select name="farmacia_id" id="farmacia_id" class="form-control-md form-control">
                             <option selected>Seleccione una opción</option>
                             @foreach($farmacias as $farmacia)
@@ -98,6 +92,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection

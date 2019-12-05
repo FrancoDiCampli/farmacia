@@ -6,7 +6,7 @@
 //     return view('welcome');
 // });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -17,4 +17,5 @@ Route::get('/', function () {
 Route::resource('usuarios', 'UsuariosController');
 Route::resource('productos', 'ProductosController');
 Route::resource('inventarios', 'InventariosController');
-action('InventariosController@create', ['id' => 1]);
+
+Route::get('/inventarios/crear/{id}', 'InventariosController@crear');

@@ -108,7 +108,11 @@
                             <label for="condicion_expendio" class=" form-control-label">Condición Expendio</label>
                         </div>
                         <div class="col-12 col-md-6">
-                            <input type="text" id="condicion_expendio" name="condicion_expendio" placeholder="Ingrese Condición Expendio" class="form-control">
+                            <select name="condicion_expendio" id="condicion_expendio" class="form-control-md form-control">
+                                <option selected>Seleccione una opción</option>
+                                <option value="Venta Libre">Venta Libre</option>
+                                <option value="Venta Bajo Receta">Venta Bajo Receta</option>
+                            </select>
                         </div>
                     </div>
 

@@ -63,7 +63,7 @@
                                 <span class="role admin">{{$producto->inventarios->sum('stock')}}</span>
                             </td>
                             <td>
-                                <a href="{{route('inventarios.create', $producto->id)}}" type="button" class="btn btn-sm btn-success">
+                                <a href="{{url('/inventarios/crear', $producto->id)}}" type="button" class="btn btn-sm btn-success">
                                     <i class="zmdi zmdi-plus"></i>&nbsp;
                                     <span>Nuevo Inventario</span>
                                 </a>
