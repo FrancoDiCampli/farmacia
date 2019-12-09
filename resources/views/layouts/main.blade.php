@@ -186,7 +186,7 @@
 
                         </li>
                         <li class="has-sub">
-                            <a class="js-arrow" href="#">
+                            <a class="js-arrow" href="{{route('reportes.index')}}">
                                 <i class="fas fa-copy"></i>Reportes</a>
 
                         </li>

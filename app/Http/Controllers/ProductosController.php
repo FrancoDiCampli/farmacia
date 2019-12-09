@@ -37,20 +37,16 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        // FOTO
-        $name = 'noimage.png';
-        if ($request->get('envase_secundario')) {
-            $carpeta = public_path() . '/img/productos/';
-            if (!file_exists($carpeta)) {
-                mkdir($carpeta, 0777, true);
-            }
-            $image = $request->get('envase_secundario');
-            $name = time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-            Image::make($request->get('envase_secundario'))->save(public_path('img/productos/') . $name);
+        $name = 'noimage.jpg';
+        if ($request->hasFile('envase_secundario')) {
+            $name = now()->format('YmdHis') . '.' . $request->file('envase_secundario')->getClientOriginalExtension();
+            Image::make($request->file('envase_secundario'))->save(public_path('img/productos/') . $name);
         }
         $foto = '/img/productos/' . $name;
+        $data = $request->toArray();
+        $data['envase_secundario'] = $foto;
 
-        Producto::create($request->toArray());
+        Producto::create($data);
 
         return redirect()->action('ProductosController@index');
     }
@@ -63,7 +59,8 @@ class ProductosController extends Controller
      */
     public function show($id)
     {
-        //
+        $producto = Producto::find($id);
+        return view('productos.show', compact('producto'));
     }
 
     /**
@@ -74,7 +71,8 @@ class ProductosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $producto = Producto::find($id);
+        return view('productos.edit', compact('producto'));
     }
 
     /**
@@ -86,7 +84,19 @@ class ProductosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $producto = Producto::find($id);
+        $name = 'noimage.jpg';
+        if ($request->hasFile('envase_secundario')) {
+            unlink(public_path($producto->envase_secundario));
+            $name = now()->format('YmdHis') . '.' . $request->file('envase_secundario')->getClientOriginalExtension();
+            Image::make($request->file('envase_secundario'))->save(public_path('img/productos/') . $name);
+        }
+        $foto = '/img/productos/' . $name;
+        $data = $request->toArray();
+        $data['envase_secundario'] = $foto;
+
+        $producto->update($data);
+        return redirect()->action('ProductosController@index');
     }
 
     /**
@@ -97,6 +107,9 @@ class ProductosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $producto = Producto::find($id);
+        unlink(public_path($producto->envase_secundario));
+        $producto->delete();
+        return redirect()->action('ProductosController@index');
     }
 }

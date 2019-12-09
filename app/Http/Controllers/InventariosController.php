@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Farmacia;
 use App\Inventario;
+use App\Movimiento;
 use App\Producto;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 
 class InventariosController extends Controller
 {
@@ -72,7 +72,14 @@ class InventariosController extends Controller
         if ($inventarios) {
             return 'Inventario Existente';
         } else {
-            Inventario::create($request->toArray());
+            $inventario = Inventario::create($request->toArray());
+            Movimiento::create([
+                'tipo_movimiento' => 1,
+                'cantidad' => $request->get('stock'),
+                'fecha_movimiento' => now(),
+                'inventario_id' => $inventario->id,
+                'usuario_id' => 1 // auth()->user()->id
+            ]);
         }
 
         return redirect()->action('InventariosController@index')->with('success', ['Inventario Creado']);

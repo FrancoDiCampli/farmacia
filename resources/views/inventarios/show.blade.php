@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <div class="user-data m-b-30">
             <h3 class="title-3 m-b-30">
-                <i class="zmdi zmdi-account-calendar"></i>user show</h3>
+                <i class="zmdi zmdi-account-calendar"></i>inventario show</h3>
 
             <div class="row form-group">
                 <div class="col col-md-3">
