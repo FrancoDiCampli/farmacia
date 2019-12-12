@@ -191,7 +191,7 @@
 
                         </li>
                         <li class="has-sub">
-                            <a class="js-arrow" href="#">
+                            <a class="js-arrow" href="{{route('notificaciones.index')}}">
                                 <i class="fas fa-copy"></i>Notificaciones</a>
 
                         </li>

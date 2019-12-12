@@ -9,71 +9,66 @@
                 <i class="zmdi zmdi-account-calendar"></i>inventario show</h3>
 
             <div class="row form-group">
+                <p>
+                    <h4>Producto:</h4> <b>{{$inventario->producto->nombre_comercial}}</b>
+                </p>
+            </div>
+            <div class="row form-group">
                 <div class="col col-md-3">
-                    <label for="nombre" class=" form-control-label">Nombre</label>
+                    <label for="lote" class=" form-control-label">Lote</label>
                 </div>
                 <div class="col-12 col-md-6">
-                    <input disabled type="text" id="nombre" name="nombre" value="{{$usuario->nombre}}" class="form-control">
+                    <input disabled value="{{$inventario->lote}}" type="number" id="lote" name="lote" placeholder="Ingrese Lote" class="form-control">
                 </div>
             </div>
 
             <div class="row form-group">
                 <div class="col col-md-3">
-                    <label for="direccion" class=" form-control-label">Dirección</label>
+                    <label for="serie" class=" form-control-label">Serie</label>
                 </div>
                 <div class="col-12 col-md-6">
-                    <input disabled type="text" id="direccion" name="direccion" value="{{$usuario->direccion}}" class="form-control">
+                    <input disabled value="{{$inventario->serie}}" type="number" id="serie" name="serie" placeholder="Ingrese Serie" class="form-control">
                 </div>
             </div>
 
             <div class="row form-group">
                 <div class="col col-md-3">
-                    <label for="telefono" class=" form-control-label">Teléfono</label>
+                    <label for="vencimiento" class=" form-control-label">Vencimiento</label>
                 </div>
                 <div class="col-12 col-md-6">
-                    <input disabled type="text" id="telefono" name="telefono" value="{{$usuario->telefono}}" class="form-control">
+                    <input disabled value="{{$inventario->vencimiento->format('d-m-Y')}}" type="text" id="vencimiento" name="vencimiento" class="form-control">
                 </div>
             </div>
 
             <div class="row form-group">
                 <div class="col col-md-3">
-                    <label for="email" class=" form-control-label">Email</label>
+                    <label for="stock_minimo" class=" form-control-label">Stock Mínimo</label>
                 </div>
                 <div class="col-12 col-md-6">
-                    <input disabled type="email" id="email" name="email" value="{{$usuario->email}}" class="form-control">
+                    <input disabled type="number" value="{{$inventario->stock_minimo}}" id="stock_minimo" name="stock_minimo" placeholder="Ingrese Stock Mínimo" class="form-control">
                 </div>
             </div>
 
             <div class="row form-group">
                 <div class="col col-md-3">
-                    <label for="password" class=" form-control-label">Password</label>
+                    <label for="stock" class=" form-control-label">Stock</label>
                 </div>
                 <div class="col-12 col-md-6">
-                    <input disabled type="password" id="password" name="password" value="{{$usuario->password}}" class="form-control">
+                    <input disabled value="{{$inventario->stock}}" type="number" id="stock" name="stock" placeholder="Ingrese Stock" class="form-control">
                 </div>
             </div>
 
             <div class="row form-group">
                 <div class="col col-md-3">
-                    <label for="perfil" class=" form-control-label">Perfil</label>
+                    <label for="farmacia_id" class=" form-control-label">Farmacia</label>
                 </div>
                 <div class="col-12 col-md-6">
-                    <input disabled type="text" id="perfil" name="perfil" value="{{$usuario->perfil}}" class="form-control">
-                </div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col col-md-3">
-                    <label for="farmacia" class=" form-control-label">Farmacia</label>
-                </div>
-                <div class="col-12 col-md-6">
-                    <input disabled type="text" id="farmacia" name="farmacia" value="{{$usuario->farmacia->razon_social}}" class="form-control">
+                    <input disabled value="{{$inventario->farmacia->razon_social}}" type="number" id="farmacia_id" name="farmacia_id" placeholder="{{$inventario->farmacia->razon_social}}" class="form-control">
                 </div>
             </div>
 
         </div>
     </div>
 </div>
-
 
 @endsection

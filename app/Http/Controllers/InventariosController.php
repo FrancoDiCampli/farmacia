@@ -93,7 +93,8 @@ class InventariosController extends Controller
      */
     public function show($id)
     {
-        //
+        $inventario = Inventario::find($id);
+        return view('inventarios.show', compact('inventario'));
     }
 
     /**
@@ -104,7 +105,8 @@ class InventariosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $inventario = Inventario::find($id);
+        return view('inventarios.edit', compact('inventario'));
     }
 
     /**
@@ -116,7 +118,45 @@ class InventariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // return $request;
+        $inventario = Inventario::find($id);
+
+        switch ($request->get('tipo_movimiento')) {
+            case '2':
+                $inventario->stock +=  $request->get('cantidad');
+                $inventario->save();
+                break;
+
+            case '3':
+                $inventario->stock -=  $request->get('cantidad');
+                $inventario->save();
+                break;
+
+            case '4':
+                $inventario->stock =  $request->get('cantidad');
+                $inventario->save();
+                break;
+
+            case '5':
+                $inventario->stock -=  $request->get('cantidad');
+                $inventario->save();
+                break;
+
+            case '6':
+                $inventario->stock +=  $request->get('cantidad');
+                $inventario->save();
+                break;
+        }
+
+        Movimiento::create([
+            'tipo_movimiento' => $request->get('tipo_movimiento'),
+            'cantidad' => $request->get('cantidad'),
+            'fecha_movimiento' => now(),
+            'inventario_id' => $inventario->id,
+            'usuario_id' => 1 // auth()->user()->id
+        ]);
+
+        return redirect()->action('InventariosController@index')->with('success', ['Inventario Actualizado']);
     }
 
     /**

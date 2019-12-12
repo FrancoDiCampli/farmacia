@@ -2,57 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Farmacia;
 use App\Inventario;
-use App\Movimiento;
-use App\Usuario;
+use App\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class ReportesController extends Controller
+class NotificacionesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
+        $inventarios = Inventario::all();
+        $reposicion = $inventarios->where('stock', 0);
 
-        $buscar = $request->get('buscar');
-        $user = Usuario::find(1); // auth()->user()->id
-        $farmacias = Farmacia::all();
-        if ($request->get('farmacia_id')) {
-            $inventarios = Inventario::where('farmacia_id', $request->get('farmacia_id'))->get();
-            foreach ($inventarios as $inv) {
-                $reportes[] = $inv->movimientos;
-            }
-            if (isset($reportes)) {
-                $reportes = collect($reportes)->flatten();
+        $vencidos = $inventarios->where('vencimiento', '<=', now());
+
+        foreach ($inventarios as $inventario) {
+            if ($inventario->stock > 0 && $inventario->stock <= $inventario->stock_minimo) {
+                $minimo[] = $inventario;
             } else {
-                $reportes = [];
-            }
-        } else {
-            if ($user->perfil == 2) {
-                $inventarios = $user->farmacia->inventarios;
-                foreach ($inventarios as $inv) {
-                    $reportes[] = $inv->movimientos;
-                }
-                if (isset($reportes)) {
-                    $reportes = collect($reportes)->flatten();
-                } else {
-                    $reportes = [];
-                }
-            } elseif ($user->perfil == 3) {
-                $reportes = $user->movimientos;
-                if (!$reportes) {
-                    $reportes = [];
-                }
-            } elseif ($request->get('farmacia_id') == 0) {
-                $reportes = Movimiento::all();
+                $minimo = [];
             }
         }
 
-        return view('reportes.index', compact('user', 'reportes', 'farmacias'));
+        return view('notificaciones.index', compact('reposicion', 'minimo', 'vencidos'));
     }
 
     /**

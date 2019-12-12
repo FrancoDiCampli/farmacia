@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <select name="farmacia_id" id="farmacia_id" class="form-control-md form-control">
-                                <option value="null">Seleccione una opción</option>
+                                <option value="0">Seleccione una opción</option>
                                 @foreach($farmacias as $farmacia)
                                 <option value="{{$farmacia->id}}">{{$farmacia->razon_social}}</option>
                                 @endforeach
