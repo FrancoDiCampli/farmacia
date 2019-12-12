@@ -9,7 +9,7 @@
                 <i class="zmdi zmdi-account-calendar"></i>notificaciones data</h3>
 
             <div class="table-responsive table-data">
-                <h3 class="title-3 m-b-30">Inventarios vencidos</h3>
+                <h3 class="title-3 m-b-30">Vencidos</h3>
                 <table class="table">
                     <thead>
                         <tr>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="table-responsive table-data">
-                <h3 class="title-3 m-b-30">Inventarios que necesitan reposición</h3>
+                <h3 class="title-3 m-b-30">Necesitan reposición</h3>
                 <table class="table">
                     <thead>
                         <tr>
@@ -104,7 +104,7 @@
 
 
             <div class="table-responsive table-data">
-                <h3 class="title-3 m-b-30">Inventarios con Stock Mínimo</h3>
+                <h3 class="title-3 m-b-30">Llegaron al Stock Mínimo</h3>
                 <table class="table">
                     <thead>
                         <tr>

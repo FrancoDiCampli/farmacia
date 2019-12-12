@@ -17,11 +17,12 @@ class ReportesController extends Controller
      */
     public function index(Request $request)
     {
-
         $buscar = $request->get('buscar');
         $user = Usuario::find(1); // auth()->user()->id
+        $usuarios = Usuario::all();
         $farmacias = Farmacia::all();
         if ($request->get('farmacia_id')) {
+            $usuarios = Usuario::all();
             $inventarios = Inventario::where('farmacia_id', $request->get('farmacia_id'))->get();
             foreach ($inventarios as $inv) {
                 $reportes[] = $inv->movimientos;
@@ -31,16 +32,26 @@ class ReportesController extends Controller
             } else {
                 $reportes = [];
             }
+        } elseif ($request->get('usuario_id')) {
+            if ($user->perfil <> 1) {
+                $usuarios = Usuario::where('farmacia_id', $user->farmacia_id)->get()->except($user->id);
+            }
+            $reportes = Movimiento::where('usuario_id', $request->get('usuario_id'))->get();
         } else {
             if ($user->perfil == 2) {
-                $inventarios = $user->farmacia->inventarios;
-                foreach ($inventarios as $inv) {
-                    $reportes[] = $inv->movimientos;
-                }
-                if (isset($reportes)) {
-                    $reportes = collect($reportes)->flatten();
+                $usuarios = Usuario::where('farmacia_id', $user->farmacia_id)->get()->except($user->id);
+                if ($request->get('usuario_id')) {
+                    $reportes = Movimiento::where('usuario_id', $request->get('usuario_id'))->get();
                 } else {
-                    $reportes = [];
+                    $inventarios = $user->farmacia->inventarios;
+                    foreach ($inventarios as $inv) {
+                        $reportes[] = $inv->movimientos;
+                    }
+                    if (isset($reportes)) {
+                        $reportes = collect($reportes)->flatten();
+                    } else {
+                        $reportes = [];
+                    }
                 }
             } elseif ($user->perfil == 3) {
                 $reportes = $user->movimientos;
@@ -52,7 +63,7 @@ class ReportesController extends Controller
             }
         }
 
-        return view('reportes.index', compact('user', 'reportes', 'farmacias'));
+        return view('reportes.index', compact('user', 'usuarios', 'reportes', 'farmacias'));
     }
 
     /**
