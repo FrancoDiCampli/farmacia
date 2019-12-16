@@ -15,18 +15,18 @@ class CreateProductosTable extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('gtin');
-            $table->string('nombre_generico');
+            $table->integer('gtin')->nullable();
+            $table->string('nombre_generico')->nullable();
             $table->string('presentacion');
             $table->string('nombre_comercial');
-            $table->integer('numero_certificado');
+            $table->integer('numero_certificado')->nullable();
             $table->string('laboratorio');
-            $table->string('forma_farmaceutica');
-            $table->string('envase_secundario');
-
-            $table->string('condicion_expendio');
-            $table->integer('via_administracion');
-            $table->string('gln_proveedor');
+            $table->string('forma_farmaceutica')->nullable();
+            $table->string('envase_secundario')->nullable();
+            $table->string('tipo');
+            $table->string('condicion_expendio')->nullable();
+            $table->integer('via_administracion')->nullable();
+            $table->string('gln_proveedor')->nullable();
             $table->timestamps();
         });
     }
